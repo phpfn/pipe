@@ -33,12 +33,15 @@ readability, polluted symbol tables, or static-analysis defying
 type inconsistency such as in the following example:
 
 ```php
-$camelCase = 'HelloWorld';
+<?php
 
-$x = ucwords($camelCase);
-$x = preg_replace('/\s+/u', '', $x);
-$x = preg_replace('/(.)(?=[A-Z])/u', '$1_', $x);
-$snakeCase = strtolower($x)
+$snakeCase = strtolower(
+    preg_replace('/(.)(?=[A-Z])/u', '$1_', 
+        preg_replace('/\s+/u', '', 
+            ucwords('HelloWorld')
+        )
+    )
+);
              
 var_dump($snakeCase); // "hello_world"
 ```
@@ -55,8 +58,27 @@ $snakeCase = pipe($camelCase)
     ->varDump;
 ```
 
-> Note: All functions are available both in the 
-  form of **camelCase**, and in the form of a **snake_case**.
+All functions are available both in the form of **camelCase**, 
+and in the form of a **snake_case**:
+  
+```php
+pipe($value)->var_dump;
+ 
+// same as
+pipe($value)->varDump;
+```
+
+and
+
+```php
+pipe($value)->strtolower;
+ 
+// same as
+pipe($value)->strToLower;
+
+// same as
+pipe($value)->str_to_lower;
+```
 
 
 ## Working With Value
