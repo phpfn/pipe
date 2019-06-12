@@ -80,6 +80,43 @@ pipe($value)->strToLower;
 pipe($value)->str_to_lower;
 ```
 
+### Another Example
+
+See: [https://wiki.php.net/rfc/pipe-operator#file_collection_example](https://wiki.php.net/rfc/pipe-operator#file_collection_example)
+
+```php
+<?php
+$result = array_merge(
+    $result,
+    namespaced\func\get_file_arg(
+        array_map(
+            function ($x) use ($arg) {
+                return $arg . '/' . $x;
+            },
+            array_filter(
+                scandir($arg),
+                function ($x) {
+                    return $x !== '.' && $x !== '..';
+                }
+            )
+        )
+    )
+);
+```
+
+With this library, the above could be easily rewritten as:
+
+```php
+<?php
+
+$result = pipe($arg)
+    ->scandir($arg)
+    ->arrayFilter(_, fn($x) => $x !== '.' && $x != '..')
+    ->arrayMap(fn($x) => $arg . '/' . $x, _)
+    ->using('namespaced\func')->get_file_arg
+    ->arrayMerge($result, _);
+```
+
 
 ## Working With Value
 
