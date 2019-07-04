@@ -126,7 +126,7 @@ $result = pipe($arg)
     ->scandir($arg)
     ->arrayFilter(_, fn($x) => $x !== '.' && $x != '..')
     ->arrayMap(fn($x) => $arg . '/' . $x, _)
-    ->using('namespaced\func')->get_file_arg
+    ->use('namespaced\func')->get_file_arg
     ->arrayMerge($result, _);
 ```
 
