@@ -123,10 +123,10 @@ With this library, the above could be easily rewritten as:
 <?php
 
 $result = pipe($arg)
-    ->scandir($arg)
+    ->scanDir($arg)
     ->arrayFilter(_, fn($x) => $x !== '.' && $x != '..')
     ->arrayMap(fn($x) => $arg . '/' . $x, _)
-    ->use('namespaced\func')->get_file_arg
+    ->use('namespaced\func')->getFileArg
     ->arrayMerge($result, _);
 ```
 
