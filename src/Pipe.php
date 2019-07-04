@@ -168,6 +168,7 @@ final class Pipe
     }
 
     /**
+     * @noinspection MagicMethodsValidityInspection
      * @param string $name
      * @return mixed|$this
      */
