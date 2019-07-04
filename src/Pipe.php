@@ -12,6 +12,7 @@ namespace Serafim\Pipe;
 use Serafim\Pipe\Resolver\AsIs;
 use Serafim\Pipe\Resolver\Join;
 use Serafim\Pipe\Resolver\Snake;
+use Serafim\Placeholder\Placeholder;
 use Serafim\Pipe\Resolver\ResolverInterface;
 use Serafim\Pipe\Exception\FunctionNotFoundException;
 
@@ -21,8 +22,13 @@ use Serafim\Pipe\Exception\FunctionNotFoundException;
  * @noinspection PhpUndefinedClassInspection
  * @property-read $value
  */
-class Pipe
+final class Pipe
 {
+    /**
+     * @var string
+     */
+    private const VALUE_PROPERTY_SELECTOR = 'value';
+
     /**
      * @var array|ResolverInterface[]
      */
@@ -66,7 +72,7 @@ class Pipe
      */
     public function __debugInfo(): array
     {
-        return ['value' => $this->value];
+        return [self::VALUE_PROPERTY_SELECTOR => $this->value];
     }
 
     /**
@@ -80,6 +86,17 @@ class Pipe
         }
 
         return $this->value;
+    }
+
+    /**
+     * @param array $arguments
+     * @return array
+     */
+    private function applyArguments(array $arguments): array
+    {
+        return Placeholder::map($arguments, function () {
+            return $this->value;
+        });
     }
 
     /**
@@ -107,6 +124,25 @@ class Pipe
 
     /**
      * @param string $function
+     * @param array $arguments
+     * @return Pipe|$this
+     */
+    private function exec(string $function, array $arguments): self
+    {
+        $function = $this->lookup($function, function (string $name): ?string {
+            $function = $this->namespaced($name);
+
+            return \function_exists($function) ? $function : null;
+        });
+
+        $self = clone $this;
+        $self->value = $function(...$arguments);
+
+        return $self;
+    }
+
+    /**
+     * @param string $function
      * @param \Closure $then
      * @return string
      */
@@ -129,36 +165,6 @@ class Pipe
     private function namespaced(string $name): string
     {
         return $this->namespace . '\\' . $name;
-    }
-
-    /**
-     * @param array $arguments
-     * @return array
-     */
-    private function applyArguments(array $arguments): array
-    {
-        return \array_map(function ($value) {
-            return $value === _ ? $this->value : $value;
-        }, $arguments);
-    }
-
-    /**
-     * @param string $function
-     * @param array $arguments
-     * @return Pipe|$this
-     */
-    private function exec(string $function, array $arguments): self
-    {
-        $function = $this->lookup($function, function (string $name): ?string {
-            $function = $this->namespaced($name);
-
-            return \function_exists($function) ? $function : null;
-        });
-
-        $self = clone $this;
-        $self->value = $function(...$arguments);
-
-        return $self;
     }
 
     /**
