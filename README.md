@@ -1,4 +1,17 @@
-# Pipe
+<p align="center">
+    <h1>Pipe</h1>
+</p>
+<p align="center">
+    <a href="https://travis-ci.org/SerafimArts/Pipe"><img src="https://travis-ci.org/SerafimArts/Pipe.svg" alt="Travis CI" /></a>
+    <a href="https://codeclimate.com/github/SerafimArts/Pipe/test_coverage"><img src="https://api.codeclimate.com/v1/badges/1fb35ca43960c5421349/test_coverage" /></a>
+    <a href="https://codeclimate.com/github/SerafimArts/Pipe/maintainability"><img src="https://api.codeclimate.com/v1/badges/1fb35ca43960c5421349/maintainability" /></a>
+</p>
+<p align="center">
+    <a href="https://packagist.org/packages/serafim/pipe"><img src="https://img.shields.io/badge/PHP-7.1+-6f4ca5.svg" alt="PHP 7.1+"></a>
+    <a href="https://packagist.org/packages/serafim/pipe"><img src="https://poser.pugx.org/SerafimArts/Pipe/version" alt="Latest Stable Version"></a>
+    <a href="https://packagist.org/packages/serafim/pipe"><img src="https://poser.pugx.org/SerafimArts/Pipe/downloads" alt="Total Downloads"></a>
+    <a href="https://raw.githubusercontent.com/SerafimArts/Pipe/master/LICENSE.md"><img src="https://poser.pugx.org/SerafimArts/Pipe/license" alt="License MIT"></a>
+</p>
 
 Object-oriented pipe operator implementation based 
 on [RFC Pipe Operator](https://wiki.php.net/rfc/pipe-operator).
