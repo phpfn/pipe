@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 use Serafim\Pipe\Pipe;
 
-if (! function_exists('pipe')) {
+if (! \function_exists('pipe')) {
     /**
      * @param mixed $value
      * @return Pipe

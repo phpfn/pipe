@@ -9,18 +9,18 @@ declare(strict_types=1);
 
 namespace Serafim\Pipe;
 
+use Serafim\Pipe\Exception\FunctionNotFoundException;
 use Serafim\Pipe\Resolver\AsIs;
 use Serafim\Pipe\Resolver\Join;
+use Serafim\Pipe\Resolver\ResolverInterface;
 use Serafim\Pipe\Resolver\Snake;
 use Serafim\Placeholder\Placeholder;
-use Serafim\Pipe\Resolver\ResolverInterface;
-use Serafim\Pipe\Exception\FunctionNotFoundException;
 
 /**
  * Class Pipe
  *
  * @noinspection PhpUndefinedClassInspection
- * @property-read $value
+ * @property $value
  */
 final class Pipe
 {

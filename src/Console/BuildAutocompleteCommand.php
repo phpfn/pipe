@@ -10,15 +10,15 @@ declare(strict_types=1);
 namespace Serafim\Pipe\Console;
 
 use Serafim\Pipe\Pipe;
-use Zend\Code\Generator\FileGenerator;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
+use Zend\Code\Generator\FileGenerator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Reflection\FunctionReflection;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class BuildAutocompleteCommand
@@ -116,12 +116,12 @@ class BuildAutocompleteCommand extends Command
     {
         $tags = [
             [
-                'name' => 'noinspection',
-                'description' => 'AutoloadingIssuesInspection'
+                'name'        => 'noinspection',
+                'description' => 'AutoloadingIssuesInspection',
             ],
             [
-                'name' => 'noinspection',
-                'description' => 'PhpUndefinedClassInspection'
+                'name'        => 'noinspection',
+                'description' => 'PhpUndefinedClassInspection',
             ],
         ];
 
