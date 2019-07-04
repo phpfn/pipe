@@ -24,11 +24,6 @@ use Serafim\Pipe\Exception\FunctionNotFoundException;
 class Pipe
 {
     /**
-     * @var string
-     */
-    public const PLACEHOLDER = "\0$$\0";
-
-    /**
      * @var array|ResolverInterface[]
      */
     private $resolvers;
@@ -143,7 +138,7 @@ class Pipe
     private function applyArguments(array $arguments): array
     {
         return \array_map(function ($value) {
-            return $value === static::PLACEHOLDER ? $this->value : $value;
+            return $value === _ ? $this->value : $value;
         }, $arguments);
     }
 

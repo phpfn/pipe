@@ -7,15 +7,14 @@
  */
 declare(strict_types=1);
 
-use Serafim\Pipe\Pipe;
+namespace Serafim\Pipe\Tests;
 
-if (! function_exists('pipe')) {
-    /**
-     * @param mixed $value
-     * @return Pipe
-     */
-    function pipe($value): Pipe
-    {
-        return new Pipe($value);
-    }
+use PHPUnit\Framework\TestCase as BaseTestCase;
+
+/**
+ * Class TestCase
+ */
+abstract class TestCase extends BaseTestCase
+{
+
 }
