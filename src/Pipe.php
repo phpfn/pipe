@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Serafim\Pipe;
 
+use Serafim\Pipe\Exception\FunctionNotFoundException;
 use Serafim\Pipe\Resolver\AsIs;
 use Serafim\Pipe\Resolver\Join;
+use Serafim\Pipe\Resolver\ResolverInterface;
 use Serafim\Pipe\Resolver\Snake;
 use Serafim\Placeholder\Placeholder;
-use Serafim\Pipe\Resolver\ResolverInterface;
-use Serafim\Pipe\Exception\FunctionNotFoundException;
 
 /**
  * Object-oriented pipe operator implementation based on PHP Pipe operator.
