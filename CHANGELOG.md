@@ -2,6 +2,7 @@
 
 ## 0.2.0
 
+- A placeholder char (`_`) replaced by a symbol `Symbol::for(Placeholder::class)`.
 - Deleting a call to the `->value` field to avoid conflicts with the 
     `value()` helper function from the `illuminate/support`.
 - Function names memoization was added.
