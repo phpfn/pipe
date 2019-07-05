@@ -11,10 +11,10 @@ use Serafim\Pipe\Pipe;
 
 if (! \function_exists('pipe')) {
     /**
-     * @param mixed $value
+     * @param mixed|null $value
      * @return Pipe
      */
-    function pipe($value): Pipe
+    function pipe($value = null): Pipe
     {
         return new Pipe($value);
     }

@@ -64,7 +64,7 @@ chain the execution of pure functions:
 
 ```php
 $snakeCase = pipe($camelCase)
-    ->ucwords(_)
+    ->ucWords(_)
     ->pregReplace('/\s+/u', '', _)
     ->pregReplace('/(.)(?=[A-Z])/u', '$1_', _)
     ->strToLower(_)
@@ -157,9 +157,6 @@ To get the value, use one of the options:
 ```php
 <?php
 $pipe = pipe('hello')->strToUpper;
-
-// Using "value" property
-$result = $pipe->value; // string("HELLO")
 
 // Using pipe invocation
 $result = $pipe(); // string("HELLO")
