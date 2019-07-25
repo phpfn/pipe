@@ -10,7 +10,7 @@
     <a href="https://packagist.org/packages/serafim/pipe"><img src="https://img.shields.io/badge/PHP-7.1+-6f4ca5.svg" alt="PHP 7.1+"></a>
     <a href="https://packagist.org/packages/serafim/pipe"><img src="https://poser.pugx.org/serafim/pipe/version" alt="Latest Stable Version"></a>
     <a href="https://packagist.org/packages/serafim/pipe"><img src="https://poser.pugx.org/serafim/pipe/downloads" alt="Total Downloads"></a>
-    <a href="https://raw.githubusercontent.com/serafim/pipe/master/LICENSE.md"><img src="https://poser.pugx.org/SerafimArts/Pipe/license" alt="License MIT"></a>
+    <a href="https://raw.githubusercontent.com/SerafimArts/Pipe/master/LICENSE.md"><img src="https://poser.pugx.org/serafim/pipe/license" alt="License MIT"></a>
 </p>
 
 Object-oriented pipe operator implementation based 
