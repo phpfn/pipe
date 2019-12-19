@@ -79,15 +79,12 @@ trait RendererTrait
      */
     private function renderAsJson($value): string
     {
-        try {
-            $result = @\json_encode($value);
-        } finally {
-            if (isset($result) && \is_string($result)) {
-                return $result;
-            }
-
+        $result = \json_encode($value);
+        if (\json_last_error() !== \JSON_ERROR_NONE) {
             return $this->renderFallback($value);
         }
+
+        return $result;
     }
 
     /**

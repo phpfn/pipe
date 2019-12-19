@@ -38,7 +38,6 @@ class BuildAutocompleteCommand extends Command
      * @var array[]
      */
     private const ARGUMENTS = [
-
     ];
 
     /**
@@ -65,19 +64,15 @@ class BuildAutocompleteCommand extends Command
         foreach (self::OPTIONS as $opt) {
             $this->addOption(...$opt);
         }
-
-        foreach (self::ARGUMENTS as $arg) {
-            $this->addArgument(...$arg);
-        }
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int
      * @throws \ReflectionException
      */
-    public function execute(InputInterface $input, OutputInterface $output): void
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $docblock = DocBlockGenerator::fromArray($this->getDocBlock());
         $docblock->setWordWrap(false);
@@ -106,6 +101,9 @@ class BuildAutocompleteCommand extends Command
         ]);
 
         $this->write($input->getOption('output'), $generator->generate());
+
+        // Return exit status
+        return 0;
     }
 
     /**

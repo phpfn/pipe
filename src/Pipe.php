@@ -167,7 +167,7 @@ final class Pipe implements PipeInterface
     }
 
     /**
-     * @param array $args
+     * @param array<int, mixed> $args
      * @return mixed
      */
     public function __invoke(...$args)
