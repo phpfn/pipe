@@ -6,7 +6,8 @@
 
 ## 1.0.0
 
-- Remove function names normalization
+- Remove function names normalization (BC)
+    - Function names should now be explicit, e.g. `pipe()->is_array` instead of `pipe()->isArray`
 - Add namespaced functions support
 - Add namespace auto import
 
