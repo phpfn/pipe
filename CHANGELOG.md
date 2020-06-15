@@ -1,5 +1,9 @@
 # Release Notes
 
+## 1.0.1
+
+- Improve ide autocomplete files (type hints)
+
 ## 1.0.0
 
 - Remove function names normalization
