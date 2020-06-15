@@ -140,7 +140,7 @@ class BuildAutocompleteCommand extends Command
 
                 $tags[] = [
                     'name'        => 'method',
-                    'description' => 'Pipe|$this ' . ($methods[] = $name) . '(' . \implode(', ', $parameters) . ')',
+                    'description' => 'PipeInterface|$this ' . ($methods[] = $name) . '(' . \implode(', ', $parameters) . ')',
                 ];
             }
 
@@ -152,7 +152,7 @@ class BuildAutocompleteCommand extends Command
 
                     $tags[] = [
                         'name'        => 'property-read',
-                        'description' => 'mixed $' . ($properties[] = $name),
+                        'description' => 'PipeInterface|$this $' . ($properties[] = $name),
                     ];
                 }
             }
