@@ -1,5 +1,11 @@
 # Release Notes
 
+## 1.0.0
+
+- Remove function names normalization
+- Add namespaced functions support
+- Add namespace auto import
+
 ## 0.2.0
 
 - A placeholder char (`_`) replaced by a symbol `Symbol::for(Placeholder::class)`.

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Pipe package.
  *
@@ -16,20 +17,21 @@ interface PipeInterface
 {
     /**
      * @param string $namespace
-     * @return \Serafim\Pipe\PipeInterface
+     * @param \Closure|null $context
+     * @return PipeInterface
      */
-    public function use(string $namespace): self;
+    public function use(string $namespace, \Closure $context = null): self;
 
     /**
      * @param string $name
      * @param array $arguments
-     * @return \Serafim\Pipe\PipeInterface
+     * @return PipeInterface
      */
     public function __call(string $name, array $arguments = []): self;
 
     /**
      * @param string $name
-     * @return \Serafim\Pipe\PipeInterface
+     * @return PipeInterface
      */
     public function __get(string $name): self;
 }

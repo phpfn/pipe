@@ -63,34 +63,15 @@ The pipe library fixes this problem, allows you to
 chain the execution of pure functions:
 
 ```php
-$snakeCase = pipe($camelCase)
-    ->ucWords(_)
-    ->pregReplace('/\s+/u', '', _)
-    ->pregReplace('/(.)(?=[A-Z])/u', '$1_', _)
-    ->strToLower(_)
-    ->varDump;
-```
-
-All functions are available both in the form of **camelCase**, 
-and in the form of a **snake_case**:
-  
-```php
-pipe($value)->var_dump;
- 
-// same as
-pipe($value)->varDump;
-```
-
-and
-
-```php
-pipe($value)->strtolower;
- 
-// same as
-pipe($value)->strToLower;
-
-// same as
-pipe($value)->str_to_lower;
+pipe('Hello World')
+    ->ucwords(_)
+    ->preg_replace('/\s+/u', '', _)
+    ->preg_replace('/(.)(?=[A-Z])/u', '$1_', _)
+    ->strtolower(_)
+    ->var_dump;
+//
+// string(11) "hello_world"
+//
 ```
 
 ### Another Example
@@ -124,10 +105,10 @@ With this library, the above could be easily rewritten as:
 
 $result = pipe($arg)
     ->scanDir($arg)
-    ->arrayFilter(_, fn($x) => $x !== '.' && $x != '..')
-    ->arrayMap(fn($x) => $arg . '/' . $x, _)
-    ->use('namespaced\func')->getFileArg
-    ->arrayMerge($result, _);
+    ->array_filter(_, fn($x): bool => $x !== '.' && $x !== '..')
+    ->array_map(fn($x): string => $arg . '/' . $x, _)
+    ->use('namespaced\func')->get_file_arg
+    ->array_merge($result, _);
 ```
 
 
@@ -140,8 +121,8 @@ underscore (`_`) character:
 <?php
 
 pipe('hello')
-    ->strReplace('o', '', _)
-    ->varDump; // "hell"
+    ->str_replace('o', '', _)
+    ->var_dump; // "hell"
 ```
 
 You can omit parentheses if only one argument is used:
@@ -149,15 +130,87 @@ You can omit parentheses if only one argument is used:
 ```php
 <?php
 
-pipe('some')->isArray->varDump; // bool(false) 
+pipe('some')
+    ->is_array
+    ->var_dump; // bool(false) 
 ```
 
 To get the value, use one of the options:
 
 ```php
 <?php
-$pipe = pipe('hello')->strToUpper;
+$context = pipe('hello')->strtoupper;
 
-// Using pipe invocation
-$result = $pipe(); // string("HELLO")
+var_dump($context);
+// object(Serafim\Pipe\Pipe)#8 (1) { ... } 
+
+var_dump($context());
+// string(5) "HELLO"
+```
+
+## Working With Namespace
+
+Let's take a simple example of such code:
+
+```php
+namespace {
+    function foo() { return __FUNCTION__; }
+}
+
+namespace Example {
+    function foo() { return __FUNCTION__; }
+}
+```
+
+During a `pipe` call, it implicitly uses the namespace in which it is called 
+as a priority:
+
+```php
+namespace {
+    echo (pipe()->foo)(); // 'foo'
+}
+
+namespace Example {
+    echo (pipe()->foo)(); // 'Example\\foo'
+}
+
+namespace Another {
+    echo (pipe()->foo)(); // 'foo'
+}
+```
+
+Let's try to manage the namespace:
+
+```php
+$context = pipe()->use('Example')->foo;
+
+echo $context(); // 'Example\\foo'
+
+$context = $context->foo;
+
+echo $context(); // 'foo'
+```
+
+Please note that the `use` function applies only to the subsequent function, 
+all further operations performed in the current context:
+
+```php
+pipe()
+    ->use('Some\\Namespace')->foo // Call "\Some\Namespace\foo()"
+    ->foo // Call "\foo()"
+;
+```
+
+In order to perform several operations in another namespace, use an anonymous 
+function as the second `use` argument.
+
+```php
+pipe()
+    ->use('Some\\Namespace', fn($pipe) => 
+        $pipe
+            ->a // Call "\Some\Namespace\a()"
+            ->b // Call "\Some\Namespace\b()"
+    )
+    ->a // Call "a()"
+;
 ```

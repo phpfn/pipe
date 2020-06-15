@@ -14,11 +14,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\FileGenerator;
-use Zend\Code\Generator\ParameterGenerator;
-use Zend\Code\Reflection\FunctionReflection;
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\FileGenerator;
+use Laminas\Code\Generator\ParameterGenerator;
+use Laminas\Code\Reflection\FunctionReflection;
 
 /**
  * Class BuildAutocompleteCommand
@@ -183,23 +183,6 @@ class BuildAutocompleteCommand extends Command
     private function format(string $function): iterable
     {
         yield $function;
-
-        if ($function !== $this->camel($function)) {
-            yield $this->camel($function);
-        }
-    }
-
-    /**
-     * @param string $fn
-     * @return string
-     */
-    private function camel(string $fn): string
-    {
-        $result = \ucwords(\str_replace(['-', '_'], ' ', $fn));
-        $result = \str_replace(' ', '', $result);
-        $result = \lcfirst($result);
-
-        return $result;
     }
 
     /**

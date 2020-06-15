@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Pipe package.
  *
@@ -16,7 +17,7 @@ trait OperatorsTrait
 {
     /**
      * @param mixed ...$arguments
-     * @return \Serafim\Pipe\Pipe|$this
+     * @return self|$this
      */
     public function array(...$arguments): self
     {
@@ -28,7 +29,7 @@ trait OperatorsTrait
 
     /**
      * @param mixed ...$arguments
-     * @return \Serafim\Pipe\Pipe|$this
+     * @return self|$this
      */
     public function list(&...$arguments): self
     {
@@ -67,7 +68,7 @@ trait OperatorsTrait
 
     /**
      * @param mixed|null $value
-     * @return \Serafim\Pipe\Pipe|$this
+     * @return self|$this
      */
     public function empty($value = null): self
     {
@@ -80,7 +81,7 @@ trait OperatorsTrait
 
     /**
      * @param mixed ...$arguments
-     * @return \Serafim\Pipe\Pipe|$this
+     * @return self|$this
      */
     public function isset(&...$arguments): self
     {
@@ -101,7 +102,7 @@ trait OperatorsTrait
 
     /**
      * @param mixed ...$arguments
-     * @return \Serafim\Pipe\Pipe|$this
+     * @return self|$this
      */
     public function unset(&...$arguments): self
     {
@@ -120,7 +121,7 @@ trait OperatorsTrait
 
     /**
      * @param mixed $code
-     * @return \Serafim\Pipe\Pipe|$this
+     * @return self|$this
      */
     public function eval($code): self
     {

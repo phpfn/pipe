@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Pipe package.
  *
@@ -10,10 +11,6 @@ declare(strict_types=1);
 namespace Serafim\Pipe;
 
 use Serafim\Pipe\Exception\FunctionNotFoundException;
-use Serafim\Pipe\Resolver\AsIs;
-use Serafim\Pipe\Resolver\Join;
-use Serafim\Pipe\Resolver\ResolverInterface;
-use Serafim\Pipe\Resolver\Snake;
 use Serafim\Placeholder\Placeholder;
 
 /**
@@ -44,15 +41,13 @@ use Serafim\Placeholder\Placeholder;
  * chain the execution of pure functions:
  *
  * <code>
- *
- *  $snakeCase = pipe($camelCase)
- *      ->ucWords(_)
- *      ->pregReplace('/\s+/u', '', _)
- *      ->pregReplace('/(.)(?=[A-Z])/u', '$1_', _)
- *      ->strToLower(_)
- *      ->varDump;
+ *  $snakeCase = pipe('Hello World')
+ *      ->ucwords(_)
+ *      ->preg_replace('/\s+/u', '', _)
+ *      ->preg_replace('/(.)(?=[A-Z])/u', '$1_', _)
+ *      ->strtolower(_)
+ *      ->var_dump;
  *  // expected output: "hello_world"
- *
  * </code>
  *
  * @see https://wiki.php.net/rfc/pipe-operator
@@ -69,60 +64,40 @@ final class Pipe implements PipeInterface
      *
      * @var string
      */
-    private const ERROR_NOT_FOUND = 'Function "%s" not found';
-
-    /**
-     * @var string[]|ResolverInterface[]
-     */
-    private const DEFAULT_RESOLVERS = [
-        AsIs::class,
-        Snake::class,
-        Join::class,
-    ];
-
-    /**
-     * A set of keys for functions for quicker recall in format:
-     * <code>
-     *  [
-     *      'vardump' => 'var_dump',
-     *      'strreplace' => 'str_replace'
-     *  ]
-     * </code>
-     *
-     * @var array|string[]
-     */
-    private static $memoized = [];
+    private const ERROR_NOT_FOUND = 'Call to undefined function %s()';
 
     /**
      * Original value with which we interact.
      *
      * @var mixed
      */
-    protected $value;
-
-    /**
-     * List of objects that define a set of renaming algorithms.
-     *
-     * @var array|ResolverInterface[]
-     */
-    private $resolvers;
+    private $value;
 
     /**
      * The namespace that we are currently using for function prefixes.
      *
+     * @var string|null
+     */
+    private $use;
+
+    /**
+     * The namespace that using for all function prefixes.
+     *
      * @var string
      */
-    private $namespace = '';
+    private $namespace;
 
     /**
      * Pipe constructor.
      *
      * @param mixed $value
+     * @param string|null $namespace
      */
-    public function __construct($value = null)
+    public function __construct($value = null, string $namespace = null)
     {
+        $this->namespace = $namespace ?? Trace::getNamespace(__DIR__);
+
         $this->value = $this->resolveValue($value);
-        $this->resolvers = $this->bootDefaultResolvers();
     }
 
     /**
@@ -141,28 +116,13 @@ final class Pipe implements PipeInterface
     }
 
     /**
-     * Constructor for default function name resolvers.
-     *
-     * @return array|ResolverInterface[]
-     */
-    private function bootDefaultResolvers(): array
-    {
-        $result = [];
-
-        foreach (self::DEFAULT_RESOLVERS as $class) {
-            $result[] = new $class();
-        }
-
-        return $result;
-    }
-
-    /**
      * @return array
      */
     public function __debugInfo(): array
     {
         return [
-            'value' => $this->value,
+            'namespace' => $this->use ?: $this->namespace,
+            'value'     => $this->value,
         ];
     }
 
@@ -203,13 +163,24 @@ final class Pipe implements PipeInterface
      * we will work further.
      *
      * @param string $namespace
-     * @return PipeInterface|Pipe|$this
+     * @param \Closure|null $context
+     * @return PipeInterface|Pipe|object|$this
      */
-    public function use(string $namespace): PipeInterface
+    public function use(string $namespace, \Closure $context = null): PipeInterface
     {
-        $self = clone $this;
+        $namespace = \trim($namespace, '\\');
 
-        $self->namespace = \trim($namespace, '\\');
+        $self = clone $this;
+        $self->use = $namespace;
+
+        if ($context !== null) {
+            $self->namespace = $namespace;
+            $new = $context($self);
+
+            if ($new instanceof PipeInterface) {
+                $self->value = $new->value;
+            }
+        }
 
         return $self;
     }
@@ -229,62 +200,32 @@ final class Pipe implements PipeInterface
      *
      * @param string $function
      * @param array $arguments
-     * @return Pipe|$this
+     * @return Pipe|object|$this
      */
     private function exec(string $function, array $arguments): self
     {
-        if (($normalized = $this->resolveMemoizedName($function)) === null) {
+        if (($normalized = $this->resolveName($function)) === null) {
             throw $this->functionNotFound($function);
         }
 
         $self = clone $this;
+
         $self->value = $normalized(...$arguments);
+        $self->use = null;
 
         return $self;
     }
 
     /**
-     * Getting the normal name of the function that we should call in the
-     * future with the intermediate memoization of the original name.
-     *
-     * @param string $function
-     * @return string|null
-     */
-    private function resolveMemoizedName(string $function): ?string
-    {
-        $lower = \strtolower($function);
-
-        return self::$memoized[$lower] ?? self::$memoized[$lower] = $this->resolveName($function);
-    }
-
-    /**
      * Getting the normal name of the function that we should call in the future.
      *
-     * @param string $function
+     * @param string $name
      * @return string|null
      */
-    private function resolveName(string $function): ?string
+    private function resolveName(string $name): ?string
     {
-        return $this->lookup($function, function (string $name): ?string {
-            $function = $this->namespaced($name);
-
-            return \function_exists($function) ? $function : null;
-        });
-    }
-
-    /**
-     * Lookup method to a suitable function name.
-     *
-     * @param string $function
-     * @param \Closure $then
-     * @return string|null
-     */
-    private function lookup(string $function, \Closure $then): ?string
-    {
-        foreach ($this->resolvers as $resolver) {
-            if (\is_string($name = $then($resolver->resolve($function)))) {
-                return $name;
-            }
+        if (\function_exists($function = $this->namespaced($name))) {
+            return $function;
         }
 
         return null;
@@ -298,16 +239,24 @@ final class Pipe implements PipeInterface
      */
     private function namespaced(string $name): string
     {
-        return $this->namespace . '\\' . $name;
+        if ($this->use) {
+            return $this->use . '\\' . $name;
+        }
+
+        $namespaced = $this->namespace . '\\' . $name;
+
+        return \function_exists($namespaced) ? $namespaced : $name;
     }
 
     /**
      * @param string $function
-     * @return \Serafim\Pipe\Exception\FunctionNotFoundException
+     * @return FunctionNotFoundException
      */
     private function functionNotFound(string $function): FunctionNotFoundException
     {
-        $message = \sprintf(self::ERROR_NOT_FOUND, $this->namespaced($function));
+        $message = \vsprintf(self::ERROR_NOT_FOUND, [
+            \trim($this->namespaced($function), '\\'),
+        ]);
 
         return new FunctionNotFoundException($message);
     }
@@ -316,7 +265,7 @@ final class Pipe implements PipeInterface
      * @noinspection MagicMethodsValidityInspection
      *
      * @param string $function
-     * @return \Serafim\Pipe\PipeInterface|Pipe|$this
+     * @return PipeInterface|Pipe|$this
      */
     public function __get(string $function): PipeInterface
     {
@@ -335,7 +284,7 @@ final class Pipe implements PipeInterface
      */
     public function __isset(string $function): bool
     {
-        return $this->resolveMemoizedName($function) !== null;
+        return $this->resolveName($function) !== null;
     }
 
     /**

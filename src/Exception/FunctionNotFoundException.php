@@ -12,6 +12,6 @@ namespace Serafim\Pipe\Exception;
 /**
  * Class FunctionNotFoundException
  */
-class FunctionNotFoundException extends \BadFunctionCallException
+class FunctionNotFoundException extends \Error
 {
 }

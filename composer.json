@@ -34,9 +34,10 @@
         ]
     },
     "require-dev": {
-        "zendframework/zend-code": "3.*",
-        "symfony/console": "4.*",
-        "phpunit/phpunit": "~7.5"
+        "laminas/laminas-code": "~3.4",
+        "symfony/console": "~4.3|~5.0",
+        "phpunit/phpunit": "~7.5|~8.0",
+        "symfony/var-dumper": "~4.3|~5.0"
     },
     "autoload-dev": {
         "psr-4": {
@@ -44,7 +45,10 @@
         }
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.1.33"
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true
