@@ -2710,7 +2710,7 @@ namespace Serafim\Pipe;
  * @method PipeInterface|$this cli_get_process_title()
  * @property-read PipeInterface|$this $cli_get_process_title
  */
-class Pipe
+class Pipe implements PipeInterface
 {
 
 
