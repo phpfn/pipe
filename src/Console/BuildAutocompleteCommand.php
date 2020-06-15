@@ -9,16 +9,16 @@ declare(strict_types=1);
 
 namespace Serafim\Pipe\Console;
 
-use Serafim\Pipe\Pipe;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\FileGenerator;
 use Laminas\Code\Generator\ParameterGenerator;
 use Laminas\Code\Reflection\FunctionReflection;
+use Serafim\Pipe\Pipe;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class BuildAutocompleteCommand

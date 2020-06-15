@@ -115,7 +115,7 @@ namespace Serafim\Pipe\Tests {
                         ->is_string;
                 });
 
-            $this->assertSame(true, $context());
+            $this->assertTrue($context());
         }
     }
 

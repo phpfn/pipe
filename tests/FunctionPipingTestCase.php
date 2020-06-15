@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace Serafim\Pipe\Tests;
 
-use Serafim\Pipe\Pipe;
-
 /**
  * Class TestFunctionPiping
  */
@@ -27,7 +25,7 @@ class FunctionPipingTestCase extends TestCase
             ['class_exists', __CLASS__],
             ['function_exists', 'function_exists'],
             ['is_array', [1, 2, 3]],
-            ['is_string', 'string']
+            ['is_string', 'string'],
         ];
     }
 

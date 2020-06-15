@@ -48,7 +48,7 @@ final class Trace
      */
     public static function getNamespace(string $directory): string
     {
-        return (new Trace($directory))->getExecutionNamespace();
+        return (new self($directory))->getExecutionNamespace();
     }
 
     /**
