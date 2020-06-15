@@ -42,13 +42,13 @@
     "autoload-dev": {
         "psr-4": {
             "Serafim\\Pipe\\Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "tests/stubs/functions.php"
+        ]
     },
     "config": {
-        "sort-packages": true,
-        "platform": {
-            "php": "7.1.33"
-        }
+        "sort-packages": true
     },
     "minimum-stability": "dev",
     "prefer-stable": true

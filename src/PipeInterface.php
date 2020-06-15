@@ -34,4 +34,10 @@ interface PipeInterface
      * @return PipeInterface
      */
     public function __get(string $name): self;
+
+    /**
+     * @param mixed ...$args
+     * @return mixed
+     */
+    public function __invoke(...$args);
 }

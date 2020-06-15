@@ -9,138 +9,113 @@
 
 declare(strict_types=1);
 
-namespace Serafim\Pipe\Tests {
+namespace Serafim\Pipe\Tests;
 
-    use Serafim\Pipe\PipeInterface;
+use Serafim\Pipe\PipeInterface;
+
+/**
+ * Class NamespacedFunctionsTestCase
+ */
+class NamespacedFunctionsTestCase extends TestCase
+{
+    /**
+     * @return void
+     */
+    public function testFunctionFromNamespace(): void
+    {
+        $this->assertSame(
+            'Some\\Any\\test_foo',
+            (pipe(true, 'Some\\Any')->test_foo)()
+        );
+    }
 
     /**
-     * Class NamespacedFunctionsTestCase
+     * @return void
      */
-    class NamespacedFunctionsTestCase extends TestCase
+    public function testChainingFunctionFromNamespace(): void
     {
-        /**
-         * @return void
-         */
-        public function testFunctionFromNamespace(): void
-        {
-            $this->assertSame(
-                'Some\\Any\\test_foo',
-                (pipe(true, 'Some\\Any')->test_foo)()
-            );
-        }
-
-        /**
-         * @return void
-         */
-        public function testChainingFunctionFromNamespace(): void
-        {
-            $this->assertSame(
-                'Some\\Any\\test_foo',
-                (pipe(true, 'Some\\Any')->test_foo->test_foo)()
-            );
-        }
-
-        /**
-         * @return void
-         */
-        public function testGlobalFunctionFromNamespace(): void
-        {
-            $this->assertSame(
-                'global_foo',
-                (pipe(true, 'Some\\Any')->global_foo)()
-            );
-        }
-
-        /**
-         * @return void
-         */
-        public function testExportedFunctionFromNamespace(): void
-        {
-            $this->assertSame(
-                __NAMESPACE__ . '\\test_foo',
-                (pipe(true)->test_foo)()
-            );
-        }
-
-        /**
-         * @return void
-         */
-        public function testFunctionFromGlobalNamespace(): void
-        {
-            $this->assertSame(
-                'global_foo',
-                (pipe(true)->global_foo)()
-            );
-        }
-
-        /**
-         * @return void
-         */
-        public function testFunctionWithChangedContext(): void
-        {
-            $context = pipe(true)
-                ->use('Some\\Any')
-                ->test_foo;
-
-            $this->assertSame('Some\\Any\\test_foo', $context());
-
-            $context = $context
-                ->test_foo;
-
-            $this->assertSame(__NAMESPACE__ . '\\test_foo', $context());
-        }
-
-        /**
-         * @return void
-         */
-        public function testFunctionsInsideChangedContext(): void
-        {
-            $context = pipe(true)
-                ->use('Some\\Any', static function (PipeInterface $ctx) {
-                    return $ctx->test_foo;
-                });
-
-            $this->assertSame('Some\\Any\\test_foo', $context());
-        }
-
-        /**
-         * @return void
-         */
-        public function testMultipleFunctionsWithChangedContext(): void
-        {
-            $context = pipe(true)
-                ->use('Some\\Any', static function (PipeInterface $ctx) {
-                    return $ctx
-                        ->test_foo
-                        ->is_string;
-                });
-
-            $this->assertTrue($context());
-        }
+        $this->assertSame(
+            'Some\\Any\\test_foo',
+            (pipe(true, 'Some\\Any')->test_foo->test_foo)()
+        );
     }
 
-    function test_foo()
+    /**
+     * @return void
+     */
+    public function testGlobalFunctionFromNamespace(): void
     {
-        return __FUNCTION__;
+        $this->assertSame(
+            'global_foo',
+            (pipe(true, 'Some\\Any')->global_foo)()
+        );
     }
-}
 
-namespace {
-    function global_foo()
+    /**
+     * @return void
+     */
+    public function testExportedFunctionFromNamespace(): void
     {
-        return __FUNCTION__;
+        $this->assertSame(
+            __NAMESPACE__ . '\\test_foo',
+            (pipe(true)->test_foo)()
+        );
     }
 
-    function test_foo()
+    /**
+     * @return void
+     */
+    public function testFunctionFromGlobalNamespace(): void
     {
-        return __FUNCTION__;
+        $this->assertSame(
+            'global_foo',
+            (pipe(true)->global_foo)()
+        );
     }
-}
 
-namespace Some\Any {
-
-    function test_foo()
+    /**
+     * @return void
+     */
+    public function testFunctionWithChangedContext(): void
     {
-        return __FUNCTION__;
+        $context = pipe(true)
+            ->use('Some\\Any')
+            ->test_foo
+        ;
+
+        $this->assertSame('Some\\Any\\test_foo', $context());
+
+        $context = $context
+            ->test_foo;
+
+        $this->assertSame(__NAMESPACE__ . '\\test_foo', $context());
+    }
+
+    /**
+     * @return void
+     */
+    public function testFunctionsInsideChangedContext(): void
+    {
+        $context = pipe(true)
+            ->use('Some\\Any', static function (PipeInterface $ctx) {
+                return $ctx->test_foo;
+            });
+
+        $this->assertSame('Some\\Any\\test_foo', $context());
+    }
+
+    /**
+     * @return void
+     */
+    public function testMultipleFunctionsWithChangedContext(): void
+    {
+        $context = pipe(true)
+            ->use('Some\\Any', static function (PipeInterface $ctx) {
+                return $ctx
+                    ->test_foo
+                    ->is_string;
+            });
+
+        $this->assertTrue($context());
     }
 }
