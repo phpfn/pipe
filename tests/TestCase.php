@@ -25,8 +25,6 @@ abstract class TestCase extends BaseTestCase
      */
     protected function pipe($value = null, string $namespace = null): PipeInterface
     {
-        return pipe($value, $namespace);
-
         return new Pipe($value, $namespace);
     }
 }

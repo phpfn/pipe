@@ -11,11 +11,26 @@ declare(strict_types=1);
 namespace Serafim\Pipe;
 
 /**
- * Trait FunctionalOperatorsTrait
+ * Trait OperatorsTrait
  */
 trait OperatorsTrait
 {
     /**
+     * Creates an array.
+     *
+     * <code>
+     *  pipe()
+     *      ->array(1, 2, 3)
+     *      ->var_dump  // array(3) { 1, 2, 3 }
+     *  ;
+     *
+     *  pipe(42)
+     *      ->array(_, 23)
+     *      ->var_dump  // array(2) { 42, 23 }
+     *  ;
+     * </code>
+     *
+     * @see https://php.net/manual/en/function.array.php
      * @param mixed ...$arguments
      * @return self|$this
      */
@@ -28,6 +43,17 @@ trait OperatorsTrait
     }
 
     /**
+     * Assigns a list of variables in one operation.
+     *
+     * <code>
+     *  $a = $b = 0;
+     *
+     *  pipe([42, 23])->list($a, $b);
+     *
+     *  var_dump($a, $b); // int(42) int(23)
+     * </code>
+     *
+     * @see https://php.net/manual/en/function.list.php
      * @param mixed ...$arguments
      * @return self|$this
      */
@@ -49,7 +75,15 @@ trait OperatorsTrait
     }
 
     /**
-     * @param int|string|mixed $status
+     * Terminates execution of the script. Shutdown functions and object
+     * destructors will always be executed even if exit is called.
+     *
+     * <code>
+     *  pipe(255)->die; // "Exit with status code 255"
+     * </code>
+     *
+     * @see https://php.net/manual/en/function.die.php
+     * @param int|string|resource $status
      * @return void
      */
     public function die($status = 255): void
@@ -58,7 +92,15 @@ trait OperatorsTrait
     }
 
     /**
-     * @param int|string|mixed $status
+     * Terminates execution of the script. Shutdown functions and object
+     * destructors will always be executed even if exit is called.
+     *
+     * <code>
+     *  pipe(255)->die; // "Exit with status code 255"
+     * </code>
+     *
+     * @see https://php.net/manual/en/function.exit.php
+     * @param int|string|resource $status
      * @return void
      */
     public function exit($status = 255): void
@@ -67,7 +109,23 @@ trait OperatorsTrait
     }
 
     /**
-     * @param mixed|null $value
+     * Determine whether a variable is considered to be empty. A variable is
+     * considered empty if it does not exist or if its value equals "FALSE".
+     *
+     * <code>
+     *  pipe('')
+     *      ->empty
+     *      ->var_dump // bool(true)
+     *  ;
+     *
+     *  pipe('asdasd')
+     *      ->empty
+     *      ->var_dump // bool(false)
+     *  ;
+     * </code>
+     *
+     * @see https://php.net/manual/en/function.empty.php
+     * @param mixed $value
      * @return self|$this
      */
     public function empty($value = null): self
@@ -80,6 +138,29 @@ trait OperatorsTrait
     }
 
     /**
+     * Determine if a variable is set and is not "NULL".
+     *
+     * <code>
+     *  pipe()
+     *      ->isset
+     *      ->var_dump // bool(false)
+     *  ;
+     *
+     *
+     *  pipe(23)
+     *      ->isset
+     *      ->var_dump // bool(true)
+     *  ;
+     *
+     *
+     *  $some = $any = 42;
+     *  pipe($some)
+     *      ->isset(_, $any)    // isset($some, $any) === false
+     *      ->var_dump          // bool(false)
+     *  ;
+     * </code>
+     *
+     * @see https://php.net/manual/en/function.isset.php
      * @param mixed ...$arguments
      * @return self|$this
      */
@@ -101,6 +182,21 @@ trait OperatorsTrait
     }
 
     /**
+     * Destroys the specified variables.
+     *
+     * <code>
+     *  pipe(23)
+     *      ->unset
+     *      ->var_dump // null
+     *  ;
+     *
+     *  $a = $b = 23;
+     *  pipe($a)
+     *      ->unset(_, $b) // unset($a, $b)
+     *  ;
+     * </code>
+     *
+     * @see https://php.net/manual/en/function.unset.php
      * @param mixed ...$arguments
      * @return self|$this
      */
@@ -120,10 +216,19 @@ trait OperatorsTrait
     }
 
     /**
-     * @param mixed $code
+     * Evaluates the given code as PHP.
+     *
+     * <code>
+     *  pipe('class Example {}')
+     *      ->eval
+     *  ;
+     * </code>
+     *
+     * @see https://php.net/manual/en/function.eval.php
+     * @param string $code
      * @return self|$this
      */
-    public function eval($code): self
+    public function eval(string $code): self
     {
         $self = clone $this;
         $self->value = eval($this->applyArgument($code));
