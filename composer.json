@@ -10,9 +10,9 @@
         "curry",
         "partial application"
     ],
-    "homepage": "https://github.com/phpfn/pipe",
+    "homepage": "https://github.com/phpfn",
     "support": {
-        "issues": "https://github.com/phpfn/pipe/issues",
+        "issues": "https://github.com/phpfn/phpfn/issues",
         "source": "https://github.com/phpfn/pipe"
     },
     "authors": [

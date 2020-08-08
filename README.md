@@ -3,17 +3,17 @@
 Object-oriented pipe operator implementation based 
 on [RFC Pipe Operator](https://wiki.php.net/rfc/pipe-operator).
 
-
 ## Installation
 
-Library can be installed into any PHP application 
-using `Composer` dependency manager.
+Library can be installed into any PHP application:
+- Using [`Composer`](https://getcomposer.org/) dependency manager 
+- [The Force](https://www.youtube.com/watch?v=o2we_B6hDrY) for the Jedi Developers
 
 ```sh
-$ composer require serafim/pipe
+$ composer require phpfn/pipe
 ```
 
-In order to access pipe library make sure to include `vendor/autoload.php` 
+In order to access library make sure to include `vendor/autoload.php` 
 in your file.
 
 ```php
@@ -21,6 +21,7 @@ in your file.
 
 require __DIR__ . '/vendor/autoload.php';
 ```
+
 
 ## Usage
 
