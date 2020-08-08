@@ -1,0 +1,55 @@
+{
+    "name": "serafim/pipe",
+    "type": "library",
+    "description": "Library for implementing function call chains",
+    "license": "MIT",
+    "keywords": [
+        "pipe",
+        "functional",
+        "high order",
+        "curry",
+        "partial application"
+    ],
+    "homepage": "https://github.com/SerafimArts/Pipe",
+    "support": {
+        "issues": "https://github.com/SerafimArts/Pipe/issues",
+        "source": "https://github.com/SerafimArts/Pipe"
+    },
+    "authors": [
+        {
+            "name": "Kirill Nesmeyanov",
+            "email": "nesk@xakep.ru"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3",
+        "serafim/placeholder": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Serafim\\Pipe\\": "src/"
+        },
+        "files": [
+            "./src/helpers.php"
+        ]
+    },
+    "require-dev": {
+        "laminas/laminas-code": "~3.4",
+        "symfony/console": "~4.3|~5.0",
+        "phpunit/phpunit": "~7.5|~8.0",
+        "symfony/var-dumper": "~4.3|~5.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Serafim\\Pipe\\Tests\\": "tests/"
+        },
+        "files": [
+            "tests/stubs/functions.php"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
