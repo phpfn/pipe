@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 use Composer\Autoload\ClassLoader;
 use Symfony\Component\Console\Application;
-use Serafim\Pipe\Console\BuildAutocompleteCommand;
+use Fun\Pipe\Console\BuildAutocompleteCommand;
 
 
 /*

@@ -1,17 +1,18 @@
 <?php
 
 /**
- * This file is part of Pipe package.
+ * This file is part of phpfn package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 declare(strict_types=1);
 
-namespace Serafim\Pipe;
+namespace Fun\Pipe;
 
-use Serafim\Pipe\Exception\FunctionNotFoundException;
-use Serafim\Placeholder\Placeholder;
+use Fun\Pipe\Exception\FunctionNotFoundException;
+use Fun\Placeholder\Placeholder;
 
 /**
  * Object-oriented pipe operator implementation based on PHP Pipe operator.

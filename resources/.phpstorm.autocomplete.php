@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file was automatically generated
  *
@@ -6,8 +7,7 @@
  * @noinspection ALL
  */
 
-
-namespace Serafim\Pipe;
+namespace Fun\Pipe;
 
 /**
  * @noinspection AutoloadingIssuesInspection

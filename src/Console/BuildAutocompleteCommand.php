@@ -1,20 +1,22 @@
 <?php
+
 /**
- * This file is part of Pipe package.
+ * This file is part of phpfn package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 declare(strict_types=1);
 
-namespace Serafim\Pipe\Console;
+namespace Fun\Pipe\Console;
 
 use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\FileGenerator;
 use Laminas\Code\Generator\ParameterGenerator;
 use Laminas\Code\Reflection\FunctionReflection;
-use Serafim\Pipe\Pipe;
+use Fun\Pipe\Pipe;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

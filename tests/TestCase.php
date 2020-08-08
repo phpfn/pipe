@@ -1,17 +1,19 @@
 <?php
+
 /**
- * This file is part of Pipe package.
+ * This file is part of phpfn package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 declare(strict_types=1);
 
-namespace Serafim\Pipe\Tests;
+namespace Fun\Pipe\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
-use Serafim\Pipe\Pipe;
-use Serafim\Pipe\PipeInterface;
+use Fun\Pipe\Pipe;
+use Fun\Pipe\PipeInterface;
 
 /**
  * Class TestCase

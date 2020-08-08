@@ -1,5 +1,5 @@
 {
-    "name": "serafim/pipe",
+    "name": "phpfn/pipe",
     "type": "library",
     "description": "Library for implementing function call chains",
     "license": "MIT",
@@ -10,10 +10,10 @@
         "curry",
         "partial application"
     ],
-    "homepage": "https://github.com/SerafimArts/Pipe",
+    "homepage": "https://github.com/phpfn/pipe",
     "support": {
-        "issues": "https://github.com/SerafimArts/Pipe/issues",
-        "source": "https://github.com/SerafimArts/Pipe"
+        "issues": "https://github.com/phpfn/pipe/issues",
+        "source": "https://github.com/phpfn/pipe"
     },
     "authors": [
         {
@@ -22,26 +22,26 @@
         }
     ],
     "require": {
-        "php": "^7.1.3",
-        "serafim/placeholder": "~1.0"
+        "php": ">=7.4",
+        "phpfn/placeholder": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "Serafim\\Pipe\\": "src/"
+            "Fun\\Pipe\\": "src"
         },
         "files": [
-            "./src/helpers.php"
+            "src/helpers.php"
         ]
     },
     "require-dev": {
+        "phpunit/phpunit": "^9.0",
         "laminas/laminas-code": "~3.4",
         "symfony/console": "~4.3|~5.0",
-        "phpunit/phpunit": "~7.5|~8.0",
         "symfony/var-dumper": "~4.3|~5.0"
     },
     "autoload-dev": {
         "psr-4": {
-            "Serafim\\Pipe\\Tests\\": "tests/"
+            "Fun\\Pipe\\Tests\\": "tests"
         },
         "files": [
             "tests/stubs/functions.php"
