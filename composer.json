@@ -48,6 +48,11 @@
             "tests/stubs/functions.php"
         ]
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        }
+    },
     "config": {
         "sort-packages": true
     },
