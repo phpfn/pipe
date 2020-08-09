@@ -3,13 +3,7 @@
     "type": "library",
     "description": "Library for implementing function call chains",
     "license": "MIT",
-    "keywords": [
-        "pipe",
-        "functional",
-        "high order",
-        "curry",
-        "partial application"
-    ],
+    "keywords": ["pipe", "functional", "high order", "curry", "partial application"],
     "homepage": "https://github.com/phpfn",
     "support": {
         "issues": "https://github.com/phpfn/phpfn/issues",
