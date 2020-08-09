@@ -79,14 +79,14 @@ final class Pipe implements PipeInterface
      *
      * @var string|null
      */
-    private $use;
+    private ?string $use = null;
 
     /**
      * The namespace that using for all function prefixes.
      *
      * @var string
      */
-    private $namespace;
+    private string $namespace;
 
     /**
      * Pipe constructor.
@@ -96,8 +96,7 @@ final class Pipe implements PipeInterface
      */
     public function __construct($value = null, string $namespace = null)
     {
-        $this->namespace = $namespace ?? Trace::getNamespace(__DIR__);
-
+        $this->namespace = $namespace ?? '';
         $this->value = $this->resolveValue($value);
     }
 
@@ -154,9 +153,7 @@ final class Pipe implements PipeInterface
      */
     private function applyArguments(array $arguments): array
     {
-        return Placeholder::map($arguments, function () {
-            return $this->value;
-        });
+        return Placeholder::map($arguments, fn() => $this->value);
     }
 
     /**

@@ -23,8 +23,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class BuildAutocompleteCommand
- *
  * @mixin Pipe
  */
 class BuildAutocompleteCommand extends Command
@@ -83,7 +81,7 @@ class BuildAutocompleteCommand extends Command
             'classes'  => [
                 ClassGenerator::fromArray([
                     'name'          => 'Pipe',
-                    'namespacename' => 'Serafim\\Pipe',
+                    'namespacename' => 'Fun\\Pipe',
                     'docblock'      => $docblock,
                 ]),
             ],
@@ -142,7 +140,8 @@ class BuildAutocompleteCommand extends Command
 
                 $tags[] = [
                     'name'        => 'method',
-                    'description' => 'PipeInterface|$this ' . ($methods[] = $name) . '(' . \implode(', ', $parameters) . ')',
+                    'description' => 'PipeInterface|$this ' .
+                        ($methods[] = $name) . '(' . \implode(', ', $parameters) . ')',
                 ];
             }
 

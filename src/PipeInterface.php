@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Fun\Pipe;
 
-/**
- * Interface PipeInterface
- */
 interface PipeInterface
 {
     /**

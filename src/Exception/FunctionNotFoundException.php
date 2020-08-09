@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Fun\Pipe\Exception;
 
-/**
- * Class FunctionNotFoundException
- */
 class FunctionNotFoundException extends \Error
 {
 }

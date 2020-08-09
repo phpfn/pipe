@@ -11,25 +11,23 @@ declare(strict_types=1);
 
 namespace Fun\Pipe\Tests {
 
-    function test_foo()
+    function test_foo(): string
     {
         return __FUNCTION__;
     }
 }
-
 namespace {
 
-    function global_foo()
+    function global_foo(): string
     {
         return __FUNCTION__;
     }
 
-    function test_foo()
+    function test_foo(): string
     {
         return __FUNCTION__;
     }
 }
-
 namespace Some\Any {
 
     function test_foo()

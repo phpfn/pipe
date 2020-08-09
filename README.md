@@ -99,7 +99,6 @@ $result = pipe($arg)
     ->array_merge($result, _);
 ```
 
-
 ## Working With Value
 
 To pass a value as an argument to a function, use the 
@@ -130,7 +129,7 @@ To get the value, use one of the options:
 $context = pipe('hello')->strtoupper;
 
 var_dump($context);
-// object(Serafim\Pipe\Pipe)#8 (1) { ... } 
+// object(Fun\Pipe\Pipe)#8 (1) { ... } 
 
 var_dump($context());
 // string(5) "HELLO"
@@ -147,23 +146,6 @@ namespace {
 
 namespace Example {
     function foo() { return __FUNCTION__; }
-}
-```
-
-During a `pipe` call, it implicitly uses the namespace in which it is called 
-as a priority:
-
-```php
-namespace {
-    echo (pipe()->foo)(); // 'foo'
-}
-
-namespace Example {
-    echo (pipe()->foo)(); // 'Example\\foo'
-}
-
-namespace Another {
-    echo (pipe()->foo)(); // 'foo'
 }
 ```
 
@@ -202,3 +184,6 @@ pipe()
     ->a // Call "a()"
 ;
 ```
+
+> Note that the behavior of the `->use()` method differs depending on whether 
+> the second argument is passed.

@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Fun\Pipe\Tests;
 
-/**
- * Class TestFunctionPiping
- */
 class FunctionPipingTestCase extends TestCase
 {
     /**

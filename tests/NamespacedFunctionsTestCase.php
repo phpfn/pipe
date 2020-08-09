@@ -13,9 +13,6 @@ namespace Fun\Pipe\Tests;
 
 use Fun\Pipe\PipeInterface;
 
-/**
- * Class NamespacedFunctionsTestCase
- */
 class NamespacedFunctionsTestCase extends TestCase
 {
     /**
@@ -57,7 +54,7 @@ class NamespacedFunctionsTestCase extends TestCase
     public function testExportedFunctionFromNamespace(): void
     {
         $this->assertSame(
-            __NAMESPACE__ . '\\test_foo',
+            'test_foo',
             (pipe(true)->test_foo)()
         );
     }
@@ -85,10 +82,7 @@ class NamespacedFunctionsTestCase extends TestCase
 
         $this->assertSame('Some\\Any\\test_foo', $context());
 
-        $context = $context
-            ->test_foo;
-
-        $this->assertSame(__NAMESPACE__ . '\\test_foo', $context());
+        $this->assertSame('test_foo', ($context->test_foo)());
     }
 
     /**

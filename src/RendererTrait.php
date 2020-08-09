@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Fun\Pipe;
 
-/**
- * Trait RendererTrait
- */
 trait RendererTrait
 {
     /**
@@ -82,6 +79,7 @@ trait RendererTrait
     private function renderAsJson($value): string
     {
         $result = \json_encode($value);
+
         if (\json_last_error() !== \JSON_ERROR_NONE) {
             return $this->renderFallback($value);
         }
