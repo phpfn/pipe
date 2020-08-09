@@ -24,6 +24,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @mixin Pipe
+ * @internal This is an internal class for building stubs
  */
 class BuildAutocompleteCommand extends Command
 {

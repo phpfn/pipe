@@ -31,6 +31,7 @@
             "Fun\\Pipe\\": "src"
         },
         "files": [
+            "src/polyfill.php",
             "src/helpers.php"
         ]
     },
